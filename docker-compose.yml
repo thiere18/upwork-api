@@ -1,0 +1,35 @@
+version: "3"
+services:
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/usr/src/app
+    # env_file:
+    #     - ./.env
+    environment:
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME} #docker host
+      - DATABASE_PORT=${DATABASE_PORT} # port
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD} # password
+      - DATABASE_NAME=${DATABASE_NAME} #db_name
+      - DATABASE_USERNAME=${DATABASE_USERNAME} # db _username
+      - SECRET_KEY=${SECRET_KEY} #secret key
+      - ALGORITHM=${ALGORITHM}  # algorithm
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES} # access token 
+      - API_PREFIX=${API_PREFIX} # prefix_api example /api/v1
+    # command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=fastapi
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
+   
