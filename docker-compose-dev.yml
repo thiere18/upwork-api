@@ -25,8 +25,8 @@ services:
   postgres:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD=password123
-      - POSTGRES_DB=fastapi
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - postgres-db:/var/lib/postgresql/data
 
