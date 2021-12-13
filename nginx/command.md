@@ -9,11 +9,12 @@
    sudo ufw allow 5432 (postgres communication)
 ```
 ### download nginx
+```
    sudo apt install nginx
    sudo vi /etc/nginx/sites-available/default
-
+```
 ### Add the following to the location part of the server block
-
+```
    server_name yourdomain.com www.yourdomain.com;
 
     location / {
@@ -24,6 +25,7 @@
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
+  ```
 ### Check NGINX config
 ```
    sudo nginx -t
