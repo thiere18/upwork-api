@@ -24,11 +24,11 @@
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-# Check NGINX config
+### Check NGINX config
 ```
    sudo nginx -t
 ```
-# Restart NGINX
+### Restart NGINX
 ```
    sudo service nginx restart
 ```
@@ -39,7 +39,7 @@
    sudo apt-get install python-certbot-nginx
    sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 ```
-# Only valid for 90 days, test the renewal process with
+### Only valid for 90 days, test the renewal process with
 ```
    certbot renew --dry-run
    ```
