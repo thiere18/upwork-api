@@ -175,3 +175,9 @@ WantedBy=multi-user.target
 ```
    certbot renew --dry-run
    ```
+## run migrations 
+```cd ~/app
+source venv/bin/activate
+cd src/
+alembic upgrade head 
+```
