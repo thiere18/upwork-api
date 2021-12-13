@@ -1,12 +1,13 @@
 # step to configure nginx and let's Encrypt ssl configuration
 ### activate firewall
+```
    sudo ufw enable
    sudo ufw status
    sudo ufw allow ssh (Port 22)
    sudo ufw allow http (Port 80)
    sudo ufw allow https (Port 443)
    sudo ufw allow 5432 (postgres communication)
-
+```
 ### download nginx
    sudo apt install nginx
    sudo vi /etc/nginx/sites-available/default
