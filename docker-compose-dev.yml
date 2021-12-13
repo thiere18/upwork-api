@@ -1,6 +1,6 @@
 version: "3"
 services:
-  api:
+  api_service:
     build: .
     ports:
       - 8000:8000
@@ -18,7 +18,7 @@ services:
       - ALGORITHM=${ALGORITHM}  # algorithm
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES} # access token 
       - API_PREFIX=${API_PREFIX} # prefix_api example /api/v1
-    # command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
     depends_on:
       - postgres
 
@@ -29,7 +29,17 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - postgres-db:/var/lib/postgresql/data
-
+  webserver:
+    image: nginx:alpine
+ 
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+      # - 443:443
+    depends_on:
+      - postgres
+      - api_service
 volumes:
   postgres-db:
    

@@ -1,7 +1,7 @@
 version: "3"
 services:
   api:
-    image: thiere18/good
+    image: thiere18/upwork-api
     ports:
       - 8000:8000
     environment:
@@ -14,7 +14,7 @@ services:
       - ALGORITHM=${ALGORITHM}  # algorithm
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES} # access token 
       - API_PREFIX=${API_PREFIX} # prefix_api example /api/v1
-    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    command: bash -c "alembic upgrade head && gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000"
     depends_on:
       - postgres
 
